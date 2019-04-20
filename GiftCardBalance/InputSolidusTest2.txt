@@ -1,0 +1,7 @@
+Hat,19
+Shoes,22
+Shirt,34
+Socks,35
+Coat,49
+Pants,54
+Sweater,65

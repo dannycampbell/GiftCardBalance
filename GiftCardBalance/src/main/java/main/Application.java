@@ -38,7 +38,11 @@ public class Application {
 			}
 
 		}
-		System.out.println(bestCart);
+		if(bestPrice.equals(BigDecimal.ZERO)) {
+			System.out.println("Not Possible");
+		}
+		else {
+		System.out.println(bestCart);}
 	}
 
 	private static List<Item> getPossibleItems(String fileName, BigDecimal giftcardBalance)

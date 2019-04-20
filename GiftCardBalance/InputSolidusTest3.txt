@@ -1,0 +1,7 @@
+Hat,1
+Shoes,2
+Shirt,3
+Socks,55
+Coat,100
+Pants,1000
+Sweater,1010
