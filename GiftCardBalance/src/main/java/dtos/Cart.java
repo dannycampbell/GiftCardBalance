@@ -23,4 +23,8 @@ public class Cart {
 		return builder.toString();
 
 	}
+
+	public BigDecimal getTotal() {
+		return total;
+	}
 }

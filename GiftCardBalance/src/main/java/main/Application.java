@@ -23,14 +23,13 @@ public class Application {
 
 		BigDecimal giftcardBalance = new BigDecimal(giftCardBalanceString);
 		List<Item> itemList = getPossibleItems(fileName, giftcardBalance);
-		BigDecimal bestPrice = BigDecimal.ZERO;
 		for (Item product : itemList) {
 			for (Item productInner : itemList) {
 				if (product.getName().equalsIgnoreCase(productInner.getName())) {
 					continue;
 				}
 				BigDecimal newPrice = product.getPrice().add(productInner.getPrice());
-				if (newPrice.compareTo(bestPrice) > 0 && newPrice.compareTo(giftcardBalance) < 0) {
+				if (newPrice.compareTo(bestCart.getTotal()) > 0 && newPrice.compareTo(giftcardBalance) < 0) {
 					bestCart = new Cart(Arrays.asList(product, productInner), newPrice);
 
 				}
@@ -38,7 +37,7 @@ public class Application {
 			}
 
 		}
-		if(bestPrice.equals(BigDecimal.ZERO)) {
+		if(bestCart.getTotal().equals(BigDecimal.ZERO)) {
 			System.out.println("Not Possible");
 		}
 		else {
