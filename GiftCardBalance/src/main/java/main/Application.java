@@ -1,4 +1,5 @@
 package main;
+
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -18,7 +19,7 @@ public class Application {
 
 		String fileName = args[0];
 		String giftCardBalanceString = args[1];
-		
+
 		Cart bestCart = new Cart(new ArrayList<Item>(), BigDecimal.ZERO);
 
 		BigDecimal giftcardBalance = new BigDecimal(giftCardBalanceString);
@@ -29,19 +30,29 @@ public class Application {
 					continue;
 				}
 				BigDecimal newPrice = product.getPrice().add(productInner.getPrice());
-				if (newPrice.compareTo(bestCart.getTotal()) > 0 && newPrice.compareTo(giftcardBalance) < 0) {
-					bestCart = new Cart(Arrays.asList(product, productInner), newPrice);
-
+				boolean newPriceLargerThanOldPrice = newPrice.compareTo(bestCart.getTotal()) > 0;
+				if (newPriceLargerThanOldPrice) {
+					if (newPrice.compareTo(giftcardBalance) < 0) {
+						bestCart = new Cart(Arrays.asList(product, productInner), newPrice);
+					}
+					if (newPrice.compareTo(giftcardBalance) == 0) {
+						bestCart = new Cart(Arrays.asList(product, productInner), newPrice);
+						//Break because it is a perfect match to the giftcard
+						break;
+					}
 				}
-
+				if (bestCart.getTotal().equals(giftcardBalance)) {
+					//Break because it is a perfect match to the giftcard
+					break;
+				}
 			}
 
 		}
-		if(bestCart.getTotal().equals(BigDecimal.ZERO)) {
+		if (bestCart.getTotal().equals(BigDecimal.ZERO)) {
 			System.out.println("Not Possible");
+		} else {
+			System.out.println(bestCart);
 		}
-		else {
-		System.out.println(bestCart);}
 	}
 
 	private static List<Item> getPossibleItems(String fileName, BigDecimal giftcardBalance)
